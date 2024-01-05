@@ -8,23 +8,23 @@
  */
 void enqueue(Queue *queue, const void *address)
 {
-        Node *new;
+	Node *new;
 
-        if (!queue)
-                return;
-        new = malloc(sizeof(Node));
-        if (new)
-        {
-                new->btree_node = address;
-                new->next = NULL;
-                if (!queue->front) /* if queue is empty */
-                        queue->front = queue->rear = new;
-                else
-                {
-                        queue->rear->next = new;
-                        queue->rear = new;
-                }
-        }
+	if (!queue)
+		return;
+	new = malloc(sizeof(Node));
+	if (new)
+	{
+		new->btree_node = address;
+		new->next = NULL;
+		if (!queue->front) /* if queue is empty */
+			queue->front = queue->rear = new;
+		else
+		{
+			queue->rear->next = new;
+			queue->rear = new;
+		}
+	}
 }
 
 /**
@@ -34,18 +34,18 @@ void enqueue(Queue *queue, const void *address)
  */
 const void *dequeue(Queue *queue)
 {
-        Node *tmp;
-        const void *address;
+	Node *tmp;
+	const void *address;
 
-        if (!queue || !queue->front)
-                return (NULL);
-        tmp = queue->front;
-        queue->front = queue->front->next;
-        if (queue->front == NULL) /* if no element been in queue */
-                queue->rear = NULL;
-        address = tmp->btree_node;
-        free(tmp);
-        return (address);
+	if (!queue || !queue->front)
+		return (NULL);
+	tmp = queue->front;
+	queue->front = queue->front->next;
+	if (queue->front == NULL) /* if no element been in queue */
+		queue->rear = NULL;
+	address = tmp->btree_node;
+	free(tmp);
+	return (address);
 }
 
 /**
@@ -55,18 +55,18 @@ const void *dequeue(Queue *queue)
  */
 void free2(Queue *queue)
 {
-        Node *tmp;
+	Node *tmp;
 
-        if (!queue)
-                return;
-        tmp = queue->front;
-        while (queue->front)
-        {
-                tmp = queue->front;
-                queue->front = queue->front->next;
-                free(tmp);
-        }
-        free(queue);
+	if (!queue)
+		return;
+	tmp = queue->front;
+	while (queue->front)
+	{
+		tmp = queue->front;
+		queue->front = queue->front->next;
+		free(tmp);
+	}
+	free(queue);
 }
 
 /**
@@ -77,44 +77,44 @@ void free2(Queue *queue)
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-        Queue *queue;
-        int flag = 0;
-        const binary_tree_t *btree_node, *left, *right;
+	Queue *queue;
+	int flag = 0;
+	const binary_tree_t *btree_node, *left, *right;
 
-        if (tree == NULL)
-                return (0);
-        queue = malloc(sizeof(Queue));
-        if (!queue)
-                return (0);
-        queue->front = queue->rear = NULL;
-        enqueue(queue, tree);
-        while (queue->front)
-        {
-                btree_node = dequeue(queue);
-                left = btree_node->left, right = btree_node->right;
-                if (left)
-                {
-                        if (flag == 1)
-                        {
-                                free2(queue);
-                                return (0);
-                        }
-                        enqueue(queue, left);
-                }
-                else
-                        flag = 1;
-                if (right)
-                {
-                        if (flag == 1)
-                        {
-                                free2(queue);
-                                return (0);
-                        }
-                        enqueue(queue, right);
-                }
-                else
-                        flag = 1;
-        }
-        free2(queue);
-        return (1);
+	if (tree == NULL)
+		return (0);
+	queue = malloc(sizeof(Queue));
+	if (!queue)
+		return (0);
+	queue->front = queue->rear = NULL;
+	enqueue(queue, tree);
+	while (queue->front)
+	{
+		btree_node = dequeue(queue);
+		left = btree_node->left, right = btree_node->right;
+		if (left)
+		{
+			if (flag == 1)
+			{
+				free2(queue);
+				return (0);
+			}
+			enqueue(queue, left);
+		}
+		else
+			flag = 1;
+		if (right)
+		{
+			if (flag == 1)
+			{
+				free2(queue);
+				return (0);
+			}
+			enqueue(queue, right);
+		}
+		else
+			flag = 1;
+	}
+	free2(queue);
+	return (1);
 }

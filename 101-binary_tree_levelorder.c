@@ -8,23 +8,23 @@
  */
 void enqueue(Queue *queue, const void *address)
 {
-        Node *new;
+	Node *new;
 
-        if (!queue)
-                return;
-        new = malloc(sizeof(Node));
-        if (new)
-        {
-                new->btree_node = address;
-                new->next = NULL;
-                if (!queue->front) /* if queue is empty */
-                        queue->front = queue->rear = new;
-                else
-                {
-                        queue->rear->next = new;
-                        queue->rear = new;
-                }
-        }
+	if (!queue)
+		return;
+	new = malloc(sizeof(Node));
+	if (new)
+	{
+		new->btree_node = address;
+		new->next = NULL;
+		if (!queue->front) /* if queue is empty */
+			queue->front = queue->rear = new;
+		else
+		{
+			queue->rear->next = new;
+			queue->rear = new;
+		}
+	}
 }
 
 /**
@@ -34,18 +34,18 @@ void enqueue(Queue *queue, const void *address)
  */
 const void *dequeue(Queue *queue)
 {
-        Node *tmp;
-        const void *address;
+	Node *tmp;
+	const void *address;
 
-        if (!queue || !queue->front)
-                return (NULL);
-        tmp = queue->front;
-        queue->front = queue->front->next;
-        if (queue->front == NULL) /* if no element been in queue */
-                queue->rear = NULL;
-        address = tmp->btree_node;
-        free(tmp);
-        return (address);
+	if (!queue || !queue->front)
+		return (NULL);
+	tmp = queue->front;
+	queue->front = queue->front->next;
+	if (queue->front == NULL) /* if no element been in queue */
+		queue->rear = NULL;
+	address = tmp->btree_node;
+	free(tmp);
+	return (address);
 }
 
 /**
@@ -57,28 +57,28 @@ const void *dequeue(Queue *queue)
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-        Queue *queue;
-        const binary_tree_t *btree_node;
+	Queue *queue;
+	const binary_tree_t *btree_node;
 
-        if (!tree || !func)
-                return;
+	if (!tree || !func)
+		return;
 
-        queue = malloc(sizeof(Queue));
-        if (queue)
-        {
-                queue->front = queue->rear = NULL;
-                enqueue(queue, tree);
-                while (queue->front)
-                {
-                        /* dequeue and get the btree-node address */
-                        btree_node = dequeue(queue);
+	queue = malloc(sizeof(Queue));
+	if (queue)
+	{
+		queue->front = queue->rear = NULL;
+		enqueue(queue, tree);
+		while (queue->front)
+		{
+			/* dequeue and get the btree-node address */
+			btree_node = dequeue(queue);
 
-                        func(btree_node->n);
-                        if (btree_node->left)
-                                enqueue(queue, btree_node->left);
-                        if (btree_node->right)
-                                enqueue(queue, btree_node->right);
-                }
-                free(queue);
-        }
+			func(btree_node->n);
+			if (btree_node->left)
+				enqueue(queue, btree_node->left);
+			if (btree_node->right)
+				enqueue(queue, btree_node->right);
+		}
+		free(queue);
+	}
 }
