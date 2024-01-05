@@ -15,10 +15,10 @@
  */
 struct binary_tree_s
 {
-        int n;
-        struct binary_tree_s *parent;
-        struct binary_tree_s *left;
-        struct binary_tree_s *right;
+	int n;
+	struct binary_tree_s *parent;
+	struct binary_tree_s *left;
+	struct binary_tree_s *right;
 };
 typedef struct binary_tree_s binary_tree_t;
 typedef struct binary_tree_s bst_t;
@@ -32,8 +32,8 @@ typedef struct binary_tree_s heap_t;
  */
 typedef struct node
 {
-        const void *btree_node;
-        struct node *next;
+	const void *btree_node;
+	struct node *next;
 } Node;
 
 /**
@@ -43,8 +43,8 @@ typedef struct node
  */
 typedef struct queue
 {
-        Node *front;
-        Node *rear;
+	Node *front;
+	Node *rear;
 } Queue;
 
 /* ========== binary_tree_print.c ========== */
@@ -109,7 +109,7 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node);
 
 /* ========== 100-binary_trees_ancestor.c ========== */
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
-const binary_tree_t *second);
+									 const binary_tree_t *second);
 
 /* ========== 101-binary_tree_levelorder.c ========== */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
@@ -167,6 +167,5 @@ int heap_extract(heap_t **root);
 
 /* ========== 134-heap_to_sorted_array.c ========== */
 int *heap_to_sorted_array(heap_t *heap, size_t *size);
-
 
 #endif /* BINARY_TREES_H */
